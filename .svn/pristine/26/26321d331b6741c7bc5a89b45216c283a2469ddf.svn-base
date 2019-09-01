@@ -1,0 +1,13 @@
+package com.tistory.pentode.service.dao;
+
+import java.util.List;
+
+import com.tistory.pentode.vo.MainVO;
+
+public interface DtpageDAO {
+	List<MainVO> selectDtpageList(Integer storeid) throws Exception;
+	
+
+	
+	
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.tistory.pentode.service.dao.MainDAO">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-config.xml 에 Alias 되어 
+		있습니다. -->
+	<select id="selectMainList" resultType="MainVO">
+		SELECT *
+		FROM STORE_TBL
+	</select>
+	
+	<select id="DtListSearchCri" resultType="MainVO">
+		SELECT *
+		FROM
+		STORE_TBL
+		where
+		storename like CONCAT('%', CONCAT(#{Scri}, '%'))
+	</select>
+	
+</mapper>

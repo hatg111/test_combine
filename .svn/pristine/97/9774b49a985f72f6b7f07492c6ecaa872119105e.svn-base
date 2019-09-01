@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.tistory.pentode.service.dao.StoreDAO">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+ 	<select id="selectStoreList" resultType="storeVO">
+		select
+		STORE_TBL.STOREID
+		, STORE_TBL.IMG
+		, STORE_TBL.STORENAME
+		, STORE_TBL.LOCATION
+		, STORE_TBL.ADDRESS
+		, STORE_TBL.TRANS
+		, STORE_TBL.STAR
+		, STORE_TBL.FOODTYPE
+		, STORE_TBL.PRICE
+		, STORE_TBL.OPENHOURS
+		, STORE_TBL.HOLIDAY
+		, STORE_TBL.CONTACT
+		, STORE_TBL.DELIVERY
+		FROM STORE_TBL
+		ORDER BY STAR DESC
+	</select>
+	
+	<select id="selectStoreListA" resultType="storeVO">
+		select
+		STORE_TBL.STOREID
+		, STORE_TBL.IMG
+		, STORE_TBL.STORENAME
+		, STORE_TBL.LOCATION
+		, STORE_TBL.ADDRESS
+		, STORE_TBL.TRANS
+		, STORE_TBL.STAR
+		, STORE_TBL.FOODTYPE
+		, STORE_TBL.PRICE
+		, STORE_TBL.OPENHOURS
+		, STORE_TBL.HOLIDAY
+		, STORE_TBL.CONTACT
+		, STORE_TBL.DELIVERY
+		FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '한식'
+		ORDER BY STORE_TBL.STAR DESC
+		
+	</select>
+	
+	<select id="selectStoreListB" resultType="storeVO">
+		select
+		STORE_TBL.STOREID
+		, STORE_TBL.IMG
+		, STORE_TBL.STORENAME
+		, STORE_TBL.LOCATION
+		, STORE_TBL.ADDRESS
+		, STORE_TBL.TRANS
+		, STORE_TBL.STAR
+		, STORE_TBL.FOODTYPE
+		, STORE_TBL.PRICE
+		, STORE_TBL.OPENHOURS
+		, STORE_TBL.HOLIDAY
+		, STORE_TBL.CONTACT
+		, STORE_TBL.DELIVERY
+		FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '양식'
+		ORDER BY STORE_TBL.STAR DESC
+		
+	</select>
+	
+	<select id="selectStoreListC" resultType="storeVO">
+		select
+		STORE_TBL.STOREID
+		, STORE_TBL.IMG
+		, STORE_TBL.STORENAME
+		, STORE_TBL.LOCATION
+		, STORE_TBL.ADDRESS
+		, STORE_TBL.TRANS
+		, STORE_TBL.STAR
+		, STORE_TBL.FOODTYPE
+		, STORE_TBL.PRICE
+		, STORE_TBL.OPENHOURS
+		, STORE_TBL.HOLIDAY
+		, STORE_TBL.CONTACT
+		, STORE_TBL.DELIVERY
+		FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '일식'
+		ORDER BY STORE_TBL.STAR DESC
+		
+	</select>
+	
+	<select id="selectStoreListD" resultType="storeVO">
+		select
+		STORE_TBL.STOREID
+		, STORE_TBL.IMG
+		, STORE_TBL.STORENAME
+		, STORE_TBL.LOCATION
+		, STORE_TBL.ADDRESS
+		, STORE_TBL.TRANS
+		, STORE_TBL.STAR
+		, STORE_TBL.FOODTYPE
+		, STORE_TBL.PRICE
+		, STORE_TBL.OPENHOURS
+		, STORE_TBL.HOLIDAY
+		, STORE_TBL.CONTACT
+		, STORE_TBL.DELIVERY
+		FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '분식'
+		ORDER BY STORE_TBL.STAR DESC
+	</select>
+	
+	<select id="starAvarage" resultType="storeVO">
+		select AVG(TASTE) as TASTESTAR, AVG(COSTEF) as COSTEFSTAR, AVG(SERVICE) as SERVICESTAR FROM FEEDBACK_TBL
+		WHERE STOREID = #{storeid}
+	</select>
+	
+	<update id="updateStarAvarage" parameterType="map">
+		update STORE_TBL SET STAR = #{star}, TASTESTAR = #{tasteStar}, COSTEFSTAR = #{costefStar}, SERVICESTAR = #{serviceStar}
+		WHERE STOREID = #{storeid}
+	</update>
+	
+	<select id="selectStoreIdList" resultType="storeVO">
+		select STOREID
+		FROM STORE_TBL
+	</select>
+
+</mapper>

@@ -1,0 +1,33 @@
+package com.tistory.pentode.vo;
+
+import java.util.Date;
+
+public class Attachreviewimg_TBL_VO {
+	private Integer reviewid;
+	private String fullname;
+	private Date regdate;
+	
+	public Integer getReviewid() {
+		return reviewid;
+	}
+	public void setReviewid(Integer reviewid) {
+		this.reviewid = reviewid;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	
+	@Override
+	public String toString() {
+		return "Attachreviewimg_TBL_VO [reviewid=" + reviewid + ", fullname=" + fullname + ", regdate=" + regdate + "]";
+	}
+}

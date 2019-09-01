@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.tistory.pentode.service.dao.DtpageDAO">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+	<select id="selectDtpageList" resultType="MainVO">
+		SELECT
+		STOREID,
+		IMG,
+		STORENAME,
+		LOCATION,
+		ADDRESS,
+		TRANS,
+		STAR,
+		FOODTYPE,
+		PRICE,
+		OPENHOURS,
+		HOLIDAY,
+		CONTACT,
+		DELIVERY
+		FROM
+		STORE_TBL
+		where
+		storeid = #{storeid}
+	</select>
+	
+	<select id="selectFeedbackList" resultType="FeedbackVO">
+		SELECT
+		*
+		FROM
+		Feedback_TBL
+		where
+		storeid = #{storeid}
+	</select>
+
+	<delete id="reviewdelete">
+		delete from
+		feedback_tbl
+		where
+		reviewid = #{reviewid}
+		and memberid = #{memberid} and reviewid = #{memberid}
+	</delete>
+
+	<select id="listPage" resultType="FeedbackVO">
+ <![CDATA[
+ 	select 
+   	storeid, title, review, taste, costef, service, regdate, reviewid 
+ 	from feedback_tbl
+ 	where reviewid > 0 
+ 	order by reviewid desc, regdate desc
+ ]]>
+	</select>
+
+	<select id="listCriteria" resultType="FeedbackVO">
+ <![CDATA[
+ select 
+   storeid, title, review, taste, costef, service, regdate, reviewid
+from 
+   feedback_tbl
+ where reviewid > 0 
+ 	order by reviewid desc, regdate desc
+ ]]>
+	</select>
+
+	<select id="countPaging" resultType="int">
+ <![CDATA[
+ select 
+   count(reviewid) 
+ from 
+   feedback_tbl
+ where 
+   reviewid > 0 
+ ]]>
+	</select>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- <mapper namespace="org.zerock.mapper.UserMapper"> -->
+<mapper namespace="com.tistory.pentode.service.dao.UserDAO">
+
+	<select id="login" resultType="UserVO">
+
+		select * FROM MEMBER_TBL
+		WHERE MEMBERID = #{uid} AND PASSWORD = #{upw}
+
+		<!-- MEMBERID , PASSWORD , NICKNAME , GENDER , BIRTHDATE , JOINDATE , MEMBERLV 
+			, MEMBERSCORE , SESSIONKEY , SESSIONLIMIT -->
+
+
+	</select>
+
+	<update id="keepLogin" parameterType="map">
+		update MEMBER_TBL SET
+		SESSIONKEY = #{sessionId}, SESSIONLIMIT = #{next}
+		WHERE MEMBERID = #{uid}
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="UserVO">
+		select * from
+		MEMBER_TBL
+		WHERE SESSIONKEY = #{value} AND SESSIONLIMIT > SYSDATE
+	</select>
+
+	<select id="getUserInfo" resultType="UserVO">
+		select * from MEMBER_TBL
+		WHERE SESSIONKEY = #{sessionId}
+	</select>
+
+	<!-- 용태님 start -->
+	<!-- <select id="getUserInfo2" resultType="userVO"> 
+		SELECT MEMBERID, NICKNAME
+		,PASSWORD ,GENDER ,BIRTHDATE ,JOINDATE FROM MEMBER_TBL WHERE
+		MEMBERID = #{memberid} AND PASSWORD = #{password}
+	</select>
+ -->
+	<select id="getUserList" resultType="UserVO"> SELECT MEMBERID , NICKNAME , 
+		GENDER , BIRTHDATE , JOINDATE , MEMBERLV , MEMBERSCORE FROM MEMBER_TBL </select>
+		
+	<insert id="insertUser" parameterType="UserVO"> INSERT INTO MEMBER_TBL
+		(MEMBERID, NICKNAME, PASSWORD, GENDER, BIRTHDATE, JOINDATE) VALUES ( #{memberid} , #{nickname} , #{password} ,
+		#{gender} , #{birthdate}, sysdate) </insert>
+		
+	<insert id="insertImg" parameterType="String"> INSERT INTO ATTACHMEMBERIMG(MEMBERID, FULLNAME, REGDATE) VALUES(#{memberid}, #{fileName}, to_date(sysdate,'yyyy/mm/dd'))</insert>
+	
+	<update id="updateUser" parameterType="UserVO"> UPDATE MEMBER_TBL SET NICKNAME
+		= #{newnickname} , PASSWORD = #{newpassword} WHERE NICKNAME = #{nickname} AND PASSWORD = #{password} </update>
+		
+	<delete id="deleteUser" parameterType="int"> DELETE FROM MEMBER_TBL
+		WHERE MEMBERID = #{memberid} </delete>
+
+	<update id="findPwd" parameterType="UserVO">
+		UPDATE MEMBER_TBL SET PASSWORD = #{password} WHERE MEMBERID = #{memberid}
+	</update>
+	
+	<select id="checkId" parameterType="String" resultType="int">
+		SELECT COUNT(*) FORM MEMBER_TBL WHERE MEMBERID = #{memberid}
+	</select>
+	
+	<update id="GetKey" parameterType="Map">
+		UPDATE MEMBER_TBL SET SESSIONKEY = #{param2} WHERE MEMBERID = #{param1}
+	</update>
+	
+	<update id="alter_userKey" parameterType="Map">
+		UPDATE MEMBER_TBL SET MEMBERLV = 'ROOKIE' WHERE MEMBERID = #{param1} AND SESSIONKEY = #{param2}
+	</update>
+	<!-- 용태님 end -->
+</mapper>
+
+

@@ -1,0 +1,15 @@
+package com.tistory.pentode.service.dao;
+
+import java.util.List;
+
+import com.tistory.pentode.vo.StoreVO;
+
+public interface StoreDAO {
+	List<StoreVO> selectStoreList() throws Exception;
+	List<StoreVO> selectStoreListA() throws Exception;
+	List<StoreVO> selectStoreListB() throws Exception;
+	List<StoreVO> selectStoreListC() throws Exception;
+	List<StoreVO> selectStoreListD() throws Exception;
+	
+}
+

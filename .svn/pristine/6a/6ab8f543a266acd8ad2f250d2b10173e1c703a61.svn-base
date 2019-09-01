@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- <mapper namespace="org.zerock.mapper.UserMapper"> -->
+<mapper namespace="com.tistory.pentode.service.dao.UserDAO">
+
+	<select id="login" resultType="userVO">
+
+		select * FROM MEMBER_TBL
+		WHERE MEMBERID = #{uid} AND PASSWORD = #{upw}
+
+		<!-- MEMBERID , PASSWORD , NICKNAME , GENDER , BIRTHDATE , JOINDATE , MEMBERLV 
+			, MEMBERSCORE , SESSIONKEY , SESSIONLIMIT -->
+
+
+	</select>
+
+	<update id="keepLogin" parameterType="map">
+		update MEMBER_TBL SET
+		SESSIONKEY = #{sessionId}, SESSIONLIMIT = #{next}
+		WHERE MEMBERID = #{uid}
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="userVO">
+		select * from
+		MEMBER_TBL
+		WHERE SESSIONKEY = #{value} AND SESSIONLIMIT > SYSDATE
+	</select>
+
+	<select id="getUserInfo" resultType="userVO">
+		select * from MEMBER_TBL
+		WHERE SESSIONKEY = #{sessionId}
+	</select>
+
+	<!-- 용태님 start -->
+	<select id="getUserInfo2" resultType="userVO"> 
+		SELECT MEMBERID, NICKNAME
+		,PASSWORD ,GENDER ,BIRTHDATE ,JOINDATE FROM MEMBER_TBL WHERE
+		MEMBERID = #{memberid} AND PASSWORD = #{password}
+	</select>
+
+	<select id="getUserList" resultType="userVO"> 
+		SELECT MEMBERID , NICKNAME
+		,GENDER , BIRTHDATE , JOINDATE , MEMBERLV , MEMBERSCORE FROM MEMBER_TBL
+	</select>
+
+	<insert id="insertUser" parameterType="map"> 
+		INSERT INTO MEMBER_TBL
+		(MEMBERID, NICKNAME, PASSWORD, GENDER, BIRTHDATE, JOINDATE) VALUES (
+		#{memberid}, #{nickname}, #{password},
+		#{gender}, #{birthdate}, SYSDATE)
+	</insert>
+
+	<update id="updateUser" parameterType="userVO"> 
+		UPDATE MEMBER_TBL SET
+		NICKNAME
+		= #{re_nickname} , PASSWORD = #{re_pwd} , WHERE MEMBERID =
+		#{memberid}
+	</update>
+
+	<delete id="deleteUser" parameterType="int"> 
+		DELETE FROM MEMBER_TBL
+		WHERE MEMBERID = #{memberid}
+	</delete>
+	<!-- 용태님 end -->
+</mapper>
+
+

@@ -1,0 +1,69 @@
+package com.tistory.pentode.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.tistory.pentode.service.StoreService;
+import com.tistory.pentode.service.dao.StoreDAO;
+import com.tistory.pentode.vo.StoreVO;
+
+@Service("storeService")
+public class StoreServiceImpl implements StoreService {
+	@Autowired
+	private StoreDAO boardMapper;
+
+	@Override
+	@Transactional
+	public List<StoreVO> selectStoreList() throws Exception {
+		System.out.println("DAO의 selectStoreList 메소드 실행");
+		return boardMapper.selectStoreList();
+	}
+
+	// 원래는 DAO를 구현한 클래스(Impl)에 정의된 메소드를 통해서 가는건데
+	// 여기서는 DAO구현 클래스 없이 알아서 메소드 이름과 같은 매퍼파일을 찾아서 간다. (Tb_Board_SQL.xml)
+	@Transactional
+	public List<StoreVO> selectStoreListA() throws Exception {
+		System.out.println("storelistA실행");
+		return boardMapper.selectStoreListA();
+	}
+
+	@Transactional
+	public List<StoreVO> selectStoreListB() throws Exception {
+		System.out.println("storelistB실행");
+		return boardMapper.selectStoreListB();
+	}
+
+	@Transactional
+	public List<StoreVO> selectStoreListC() throws Exception {
+		System.out.println("storelistC실행");
+		return boardMapper.selectStoreListC();
+	}
+
+	@Transactional
+	public List<StoreVO> selectStoreListD() throws Exception {
+		System.out.println("storelistD실행");
+		return boardMapper.selectStoreListD();
+	}
+
+	@Override
+	public StoreVO starAvarage(Integer storeid) throws Exception {
+		return boardMapper.starAvarage(storeid);
+	}
+
+	@Override
+	public void updateStarAvarage(float tasteStar, float costefStar, float serviceStar, Integer storeid, float star) throws Exception {
+		boardMapper.updateStarAvarage(tasteStar, costefStar, serviceStar, storeid, star);
+	}
+
+	@Override
+	public List<StoreVO> selectStoreIdList() throws Exception {
+		return boardMapper.selectStoreIdList();
+	}
+	
+	
+
+}

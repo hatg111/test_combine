@@ -1,0 +1,165 @@
+package com.tistory.pentode;
+
+import java.util.Date;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
+
+import com.tistory.pentode.vo.UserVO;
+import com.tistory.pentode.dto.LoginDTO;
+import com.tistory.pentode.service.UserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	// 주입
+	@Resource(name = "userService")
+	private UserService userService;
+
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+
+	}
+
+	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
+	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
+
+		UserVO vo = userService.login(dto);
+		// 사용자 입력값으로 DB데이터를 조회해서 vo에 담는다.
+
+		if (vo == null) {
+			return;
+		}
+		System.out.println("로그인 성공" + "id: " + vo.getMemberid() + "nickname: " + vo.getNickname());
+		logger.info(vo.toString());
+		// vo가 null이 아니면 모델객체에 "userVO" 이름으로 담는다.
+		model.addAttribute("userVO", vo);
+
+		// isUseCookie를 체크하면 isUseCookie가 True로 넘어오겠지
+		if (dto.isUseCookie()) {
+
+			int amount = 60 * 60 * 24 * 7;
+			// 일주일 동안 유지
+
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+			System.out.println("session.getId()= " + session.getId());
+			userService.keepLogin(vo.getMemberid(), session.getId(), sessionLimit);
+		}
+
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws Exception {
+
+		Object obj = session.getAttribute("login");
+
+		if (obj != null) {
+			UserVO vo = (UserVO) obj;
+
+			session.removeAttribute("login");
+			session.invalidate();
+
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+
+			if (loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				userService.keepLogin(vo.getMemberid(), session.getId(), new Date());
+			}
+		}
+
+		return "user/logout";
+	}
+
+	
+
+	@RequestMapping(value = "/userInfo")
+	public String registPOST(Model model, UserVO vo, RedirectAttributes rttr, HttpSession session) throws Exception {
+		// session = request.getSession();
+		vo = (UserVO) session.getAttribute("login");
+		logger.info("regist post ...........");
+		logger.info(vo.toString());
+
+		// userService.getUserInfo(vo);
+		model.addAttribute("userVo", vo);
+		// rttr.addFlashAttribute("msg", "SUCCESS");
+		// 리다이렉트하면 기존 model?객체가 다 비워져버리는데 그걸 방지하기 위해서
+		// RedirectAttributes의 addFlashAttribute메소드를 사용한다.
+		// (header가 아닌 세션을 통해 전달하므로 ? 뒤에 파라미터가 안 보인다. )
+
+		return "user/userInfoForm";
+	}
+
+	// 용태님 start
+	/*@RequestMapping(value = "/getUserList", method = RequestMethod.GET)
+	public String getUserList(Model model) throws Exception {
+		logger.info("getUserList()....");
+		model.addAttribute("userList", userService.getUserList());
+		System.out.println(userService.getUserList());
+		return "user/userList";
+	}*/
+
+	
+	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
+	public String insertUser(@ModelAttribute("userVO") UserVO userVO)
+			throws Exception {
+		
+			userService.insertUser(userVO);
+		
+		logger.info("memeberID " + userVO.getMemberid());
+		logger.info("password " + userVO.getPassword());
+		logger.info("nickname " + userVO.getNickname());
+		logger.info("date : " + userVO.getBirthdate());
+		logger.info("gender : " + userVO.getGender());
+		
+		return "/user/login";
+	}
+	
+
+	@RequestMapping(value = { "/joinForm", "/changePwdForm" }, method = RequestMethod.GET)
+	public String joinForm(Model model) throws Exception {
+		//model.addAttribute("userVO", new UserVO());
+		logger.info("회원가입 하러 갑니다.");
+		return "user/joinForm";
+	}
+
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public String updateUser(@ModelAttribute("userVO") UserVO userVO, RedirectAttributes rttr) throws Exception {
+		userService.updateUser(userVO);
+		return "redirect:/user/getUserList";
+	}
+
+	/*@RequestMapping(value = "/loginForm")
+	public ModelAndView loginCheck(@ModelAttribute UserVO userVo, HttpSession session) {
+		boolean result = userService.loginCheck(userVo, session);
+		ModelAndView mav = new ModelAndView();
+		if (result == true) {
+			mav.setViewName("loginForm");
+			mav.addObject("msg", "success");
+		} else {
+			mav.setViewName("/");
+			mav.addObject("msg", "failure");
+		}
+		return mav;
+	}*/
+	// 용태님 end
+
+}

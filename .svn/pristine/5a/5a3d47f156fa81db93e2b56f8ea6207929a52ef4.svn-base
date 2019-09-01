@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.tistory.pentode.service.dao.StoreDAO">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+		
+<sql id="conditiontype">
+		<if test="sorted != null">
+			<if test="sorted.equals('STAR')">
+				ORDER BY STORE_TBL.STAR DESC 				
+			</if>
+			<if test="sorted.equals('tastestar')">
+				ORDER BY STORE_TBL.tastestar DESC 
+			</if>
+			<if test="sorted.equals('costefstar')">
+				ORDER BY STORE_TBL.costefstar DESC 
+			</if>
+			<if test="sorted.equals('servicestar')">
+				ORDER BY STORE_TBL.servicestar DESC 
+			</if>
+		</if>
+		<if test="sorted == null or sorted == ''">
+		
+			ORDER BY STORE_TBL.STAR DESC
+		
+		</if>
+	</sql>
+<!-- 
+ 	<select id="selectStoreList" resultType="storeVO">
+ 	<![CDATA[ 
+		select * 
+		FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = #{type}
+	]]>	
+		<include refid="conditiontype"></include>
+	</select> -->
+	
+	
+	<select id="selectStoreL" resultType="StoreVO">
+		select * FROM STORE_TBL
+		<include refid="conditiontype"></include>
+		
+	</select>
+	
+	<select id="selectStoreListA" resultType="StoreVO">
+		select * FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '한식'
+		<include refid="conditiontype"></include>
+		
+	</select>
+	
+	<select id="selectStoreListB" resultType="StoreVO">
+		select * FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '양식'
+		<include refid="conditiontype"></include>
+	</select>
+	
+	<select id="selectStoreListC" resultType="StoreVO">
+		select * FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '일식'
+		<include refid="conditiontype"></include>
+		
+	</select>
+	
+	<select id="selectStoreListD" resultType="StoreVO">
+		select * FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '분식'
+		<include refid="conditiontype"></include>
+	</select>
+	
+	<select id="selectStoreListE" resultType="StoreVO">
+		select * FROM STORE_TBL
+		WHERE STORE_TBL.FOODTYPE = '중식'
+		<include refid="conditiontype"></include>
+	</select>		
+		
+		
+	<select id="starAvarage" resultType="StoreVO">
+		select AVG(TASTE) as TASTESTAR, AVG(COSTEF) as COSTEFSTAR, AVG(SERVICE) as SERVICESTAR FROM FEEDBACK_TBL
+		WHERE STOREID = #{storeid}
+	</select>
+	
+	<update id="updateStarAvarage" parameterType="map">
+		update STORE_TBL SET STAR = #{star}, TASTESTAR = #{tasteStar}, COSTEFSTAR = #{costefStar}, SERVICESTAR = #{serviceStar}
+		WHERE STOREID = #{storeid}
+	</update>
+	
+	<select id="selectStoreIdList" resultType="StoreVO">
+		select STOREID
+		FROM STORE_TBL
+	</select>
+
+</mapper>

@@ -1,0 +1,10 @@
+package com.tistory.pentode.service;
+
+import java.util.List;
+
+import com.tistory.pentode.vo.MainVO;
+
+public interface DtpageService {
+	List<MainVO> selectDtpageList(Integer storeid) throws Exception;
+	
+}

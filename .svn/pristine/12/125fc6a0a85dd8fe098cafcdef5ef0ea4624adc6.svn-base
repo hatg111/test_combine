@@ -1,0 +1,34 @@
+package com.tistory.pentode.service.dao;
+
+import java.util.List;
+
+import com.tistory.pentode.domain.Criteria;
+import com.tistory.pentode.domain.SearchCriteria;
+
+import com.tistory.pentode.vo.Review_TBL_VO;
+
+public interface ReviewDAO {
+
+	public void create(Review_TBL_VO re) throws Exception;
+
+	public Review_TBL_VO read(Integer bno) throws Exception;
+
+	public void update(Review_TBL_VO re) throws Exception;
+
+	public void delete(Integer reviewid) throws Exception;
+
+	public List<Review_TBL_VO> listAll() throws Exception;
+
+	public List<Review_TBL_VO> listPage(int page) throws Exception;
+
+	public List<Review_TBL_VO> listCriteria(Criteria cri) throws Exception;
+
+	public int countPaging(Criteria cri) throws Exception;
+
+	// use for dynamic sql
+	public List<Review_TBL_VO> listSearch(SearchCriteria cri) throws Exception;
+
+	public int listSearchCount(SearchCriteria cri) throws Exception;
+	
+	
+}

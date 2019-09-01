@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10">
+<title>먹킷 MUKKIT</title>
+
+<link rel="stylesheet"
+	href="/resources/dist/css/MUKKIT.css">
+
+
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	crossorigin="anonymous">
+	
+<style>
+@font-face {
+   src: url("/resources/dist/font/SDSWAGGERTTF.TTF");
+   font-family:"Sdswaggerttf";
+}
+body{
+	font-family: Sdswaggerttf !important;
+}
+</style>
+<script>
+$(document).ready(
+			function() {
+				$('.search_icon').on(
+						"click",
+						function(event) {
+
+							self.location = "search?"
+									/* + '${pageMaker.makeQuery(1)}' */
+									/* + "searchType="
+									+ $("select option:selected").val() */
+									+ "keyword=" + $('#keywordInput').val();
+						})
+					});
+</script>
+</head>
+
+
+<body>
+
+	
+
+	<div class="FixedLayoutTop css_layout_menu">
+		<header>
+			<!-- Logo -->
+			<div id="fixed_head" class="fixtop">
+				<a href="${pageContext.request.contextPath}/"
+					class="logo">
+					<img
+					src="/resources/dist/img/mukkit_logo.svg"></a>
+				<div class="h-100">
+					<div class="d-flex justify-content-center h-100">
+						<div class="searchbar">
+							<input class="search_input" type="text" name="keyword" id="keywordInput"
+								value="${Scri.keyword}" placeholder="Search..."> <a class="search_icon"><i
+								class="fas fa-search"></i></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</header>
+	</div>
+
+
+	<div class="FixedLayoutContent css_contents">

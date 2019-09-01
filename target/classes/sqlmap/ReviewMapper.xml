@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tistory.pentode.service.dao.ReviewDAO">
+
+	<insert id="create">
+		insert into review_tbl 
+		(reviewid, 
+		title,
+		reportreason, 
+		reportdate,
+		reviewtaste)
+		values
+		(REVIEW_ID_SEQ.NEXTVAL,
+		#{title},
+		#{reportreason},
+		to_char(sysdate,'yyyy.mm.dd hh24:mi'),
+		#{reviewtaste})
+	</insert>
+	
+	<select id="read" resultType="ReviewVO">
+		select
+		reviewid, title,
+		reportreason, reportdate,reviewtaste
+		from
+		review_tbl
+		where reviewid = #{reviewid}
+	</select>
+	<update id="update">
+		update review_tbl set title =#{title}, reportreason
+		=#{reportreason}
+		where reviewid = #{reviewid}
+	</update>
+	<delete id="delete">
+		delete from review_tbl where reviewid = #{reviewid}
+	</delete>
+	<select id="listAll" resultType="ReviewVO">
+<![CDATA[
+select
+reviewid, title, reportreason, reportdate,reviewtaste
+from
+review_tbl
+where reviewid > 0
+order by reviewid desc, reportdate desc
+]]>
+	</select>
+	<select id="listPage" resultType="ReviewVO">
+<![CDATA[
+select
+reviewid, title, reportreason, reportdate,reviewtaste
+from
+review_tbl
+where reviewid > 0
+order by reviewid desc, reportdate desc
+limit #{page}, 10
+]]>
+	</select>
+	<select id="listCriteria" resultType="ReviewVO">
+<![CDATA[
+select
+reviewid, title, reportreason, reportdate,reviewtaste
+from
+review_tbl
+where reviewid > 0
+order by reviewid desc, reportdate desc
+limit #{pageStart}, #{perPageNum}
+]]>
+	</select>
+	<select id="countPaging" resultType="int">
+<![CDATA[
+select
+count(reviewid)
+from
+review_tbl
+where
+reviewid > 0
+]]>
+	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and reportreason like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%') OR
+				reportreason like
+				CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and ( reportreason like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%')
+				OR
+				reportreason like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+	</sql>
+	<select id="listSearch" resultType="ReviewVO">
+<![CDATA[
+select *
+from review_tbl
+where reviewid > 0
+]]>
+		<include refid="search"></include>
+<![CDATA[
+order by reviewid desc
+limit #{pageStart}, #{perPageNum}
+]]>
+	</select>
+	<select id="listSearchCount" resultType="int">
+<![CDATA[
+select count(reviewid)
+from review_tbl
+where reviewid > 0
+]]>
+		<include refid="search"></include>
+	</select>
+</mapper>

@@ -1,0 +1,95 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="/resources/dist/css/joinForm.css">
+<%@ include file="/WEB-INF/include/header.jspf"%>
+
+<script>
+	 $(document).on('click', '#btnSignup', function(e){
+		e.preventDefault();
+		if($('#memberid').val()==null || $('#nickname').val()==null ||$('.password').val()==null
+				|| $('.gender').val()==null || $('#birthdate').val()==null) {
+			alert("필수값을 입력해주세요.");
+		}else {
+			$("#form").submit();
+		}
+	}); 
+	
+	$(document).on('click', '#btnCancle', function(e){
+		e.preventDefault();
+		if(confirm("가입을 취소하시겠습니까?")){
+			$('#memberid').val('');
+			$('#nickname').val('');
+			$('.password').val('');
+			$('.gender').val('');
+			$('#birthdate').val('');
+			history.go(-1);
+		}
+		
+	});
+</script>
+
+
+<form action="/user/insertUser" method="post" id="form">
+	<br />
+	<h2>회원가입 양식</h2>
+	<br />
+	<div class="align-center">
+		<input class="hihihi" type="text" id="memberid" name="memberid" value="${param.memberid}"
+			placeholder="아이디를 입력하세요." required autofocus
+			oninvalid="this.setCustomValidity('아이디를 입력하세요.')"
+			oninput="setCustomValidity('')">
+		<%-- <c:if test="${errors.id}">ID를 입력하세요.</c:if>--%>
+		<br />
+		<%-- <c:if test="${errors.duplicateId}">이미 사용중인 아이디입니다.</c:if> --%>
+	</div>
+	<br />
+	<div class="align-center">
+		<input class="hihihi" type="text" id="nickname" name="nickname" required
+			value="${param.nickname}" placeholder="이름을 입력하세요."
+			oninvalid="this.setCustomValidity('닉네임을 입력하세요.')"
+			oninput="setCustomValidity('')">
+		<%-- <c:if
+				test="${errors.name}">이름을 입력하세요.</c:if> --%>
+	</div>
+	<br />
+	<div class="align-center">
+		<input class="hihihi password" type="password" name="password" required
+			placeholder="비밀번호를 입력하세요."
+			oninvalid="this.setCustomValidity('비밀번호를 입력하세요.')"
+			oninput="setCustomValidity('')">
+		<%-- <c:if test="${errors.password}">암호를 입력하세요.</c:if> --%>
+	</div>
+	<br />
+	<div class="align-center">
+		<input class="hihihi password" type="password" required name="confirmPassword"
+			placeholder="비밀번호를 다시 입력하세요."
+			oninvalid="this.setCustomValidity('비밀번호 확인을 입력하세요.')"
+			oninput="setCustomValidity('')">
+		<%-- <c:if
+				test="${errors.confirmPassword}">확인을 입력하세요.</c:if> --%>
+		<br />
+		<%-- <c:if test="${errors.notMatch}">암호와 확인이 일치하지 않습니다.</c:if> --%>
+	</div>
+	<br />
+	<div class="align-center">
+		<b>성별</b> <br /> <label><input type="radio" name="gender"
+			value="M" required oninvalid="this.setCustomValidity('성별을 입력하세요.')"
+			oninput="setCustomValidity('')" class="gender">남자</label> 
+			<label><input type="radio" name="gender" value="F" class="gender">여자</label>
+		<%-- <c:if
+				test="${errors.gender}">성별을 입력하세요.</c:if> --%>
+	</div>
+	<br />
+	<div class="align-center">
+		<b>생일</b><br /> <input type="date" id="birthdate" name="birthdate" required
+			oninvalid="this.setCustomValidity('생일을 입력하세요.')"
+			oninput="setCustomValidity('')">
+	</div>
+	<br />
+	<div class="align-center">
+		<button type="button" class="login_btn" id="btnSignup">회원가입 </button>
+		<button type="button" class="cancel_btn" id="btnCancle"> 취소 </button>
+	</div>
+</form>
+<%@ include file="/WEB-INF/include/footer.jspf"%>

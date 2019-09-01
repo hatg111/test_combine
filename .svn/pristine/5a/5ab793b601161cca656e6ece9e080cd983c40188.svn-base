@@ -1,0 +1,11 @@
+package com.tistory.pentode.service.dao;
+
+import java.util.List;
+
+import com.tistory.pentode.vo.MainVO;
+
+public interface MainDAO {
+	List<MainVO> selectMainList() throws Exception;
+	
+	
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<package name="com.tistory.pentode.vo"/>    
+		<!-- <typeAlias alias="mukkitVO" type="com.tistory.pentode.vo.MukkitVO"/>
+		<typeAlias alias="mainVO" type="com.tistory.pentode.vo.MainVO"/>
+		<typeAlias alias="userVO" type="com.tistory.pentode.vo.UserVO"/>
+		<typeAlias alias="UserrankingVO" type="com.tistory.pentode.vo.UserrankingVO"/>
+      	<typeAlias alias="storeVO" type="com.tistory.pentode.vo.StoreVO"/>
+      	<typeAlias alias="reviewVO" type="com.tistory.pentode.vo.Review_TBL_VO"/> -->
+	</typeAliases>
+
+
+</configuration>
+

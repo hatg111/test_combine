@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.tistory.pentode.service.dao.MukkitDAO">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+	<select id="selectMukkitList" resultType="MukkitVO">
+		select MUKKIT_TBL.MEMBERID
+		, MUKKIT_TBL.STOREID
+		, MUKKIT_TBL.VISITCHECK
+		, STORE_TBL.STORENAME 
+		FROM STORE_TBL, MUKKIT_TBL 
+		WHERE STORE_TBL.STOREID = MUKKIT_TBL.STOREID AND MUKKIT_TBL.MEMBERID= 'user00'
+	</select>
+	
+	<select id="selectMukkitList2" resultType="MukkitVO">
+		select MUKKIT_TBL.MEMBERID
+		, MUKKIT_TBL.STOREID
+		, MUKKIT_TBL.VISITCHECK
+		, STORE_TBL.STORENAME 
+		, STORE_TBL.IMG 
+		FROM STORE_TBL, MUKKIT_TBL 
+		WHERE STORE_TBL.STOREID = MUKKIT_TBL.STOREID AND MUKKIT_TBL.MEMBERID= #{memberid}
+	</select>
+	
+	<select id="modifyListY" resultType="MukkitVO">
+		update MUKKIT_TBL 
+		SET VISITCHECK = 'Y'
+		WHERE MEMBERID = #{memberid} AND STOREID = #{storeid}
+	</select>
+	
+	<select id="modifyListN" resultType="MukkitVO">
+		update MUKKIT_TBL 
+		SET VISITCHECK = 'N'
+		WHERE MEMBERID = #{memberid} AND STOREID = #{storeid}
+	</select>
+	
+	<select id="deleteList" resultType="MukkitVO">
+		delete FROM MUKKIT_TBL
+		WHERE MEMBERID = #{memberid} AND STOREID = #{storeid}
+	</select>
+	
+	<select id="insertList" resultType="MukkitVO">
+		INSERT INTO MUKKIT_TBL (MEMBERID, STOREID, VISITCHECK)
+		VALUES(#{memberid}, #{storeid}, 'N')
+	</select>
+	
+</mapper>

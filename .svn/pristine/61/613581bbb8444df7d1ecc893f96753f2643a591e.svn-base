@@ -1,0 +1,172 @@
+.container {
+	padding: 10px 0px;
+	background-color: rgb(220, 220, 220);
+	width: 100%;
+	min-width: 380px;
+	margin: 0 auto;
+	margin-bottom: 50px;
+	margin-top: 80px;
+}
+
+.pagetitle {
+	text-align: center;
+	background-color: white;
+}
+
+
+.button1 {
+	width: 160px;
+	height: 100px;
+	background-color: #F2A848;
+	border: none;
+	color: #fff;
+	padding: 15px 0;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 23px;
+	margin: 10 25 10 5;
+	cursor: pointer;
+	z-index: 1;
+	border-radius: 10px;
+}
+
+.button2 {
+	width: 160px;
+	height: 100px;
+	background-color: #5ED156;
+	border: none;
+	color: #fff;
+	padding: 15px 0;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 23px;
+	margin: 10 10 10 25;
+	cursor: pointer;
+	z-index: 1;
+	border-radius: 10px;
+}
+
+#d1 {
+	width: 411px;
+	height: 110px;
+	margin: 0 auto;
+}
+
+.rangebystar {
+	float: right;
+	padding-right: 15px;
+	z-index: 1;
+}
+
+/*  @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+ @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"); */
+/* body {
+		padding: 60px 0px;
+		background-color: rgb(220, 220, 220);
+	} */
+.event-list {
+	list-style: none;
+	font-family: Sdswaggerttf, 'Lato', sans-serif;
+	margin: 0px;
+	padding: 0px;
+	z-index: 1;
+	min-width: 380px;
+}
+
+.event-list>li {
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 0px 5px rgb(51, 51, 51);
+	padding: 0px;
+	margin: 0px 0px 20px;
+	z-index: 1;
+	min-width: 380px;
+}
+
+.event-list>li>img {
+	width: 70px;
+	float: left;
+	z-index: 1;
+}
+
+.event-list>li>.info {
+	padding-top: 5px;
+	text-align: left;
+	z-index: 1;
+	margin-left: 80px;
+}
+
+.event-list>li>.info>.title {
+	font-size: 16pt;
+	font-weight: 700;
+	z-index: 2;
+}
+
+.event-list>li>.info>.desc {
+	font-size: 13pt;
+	font-weight: 300;
+	z-index: 2;
+	margin-bottom: 8pt;
+}
+
+.event-list>li>.info>ul {
+	display: table;
+	list-style: none;
+	margin: 0px 0px 0px;
+	padding: 0px;
+	text-align: center;
+	z-index: 2;
+}
+
+.event-list>li>.info>ul>li {
+	display: table-cell;
+	cursor: pointer;
+	color: rgb(30, 30, 30);
+	font-size: 11pt;
+	font-weight: 300;
+	z-index: 2;
+}
+
+.storeimg {
+	width: 70px;
+	height: 70px;
+}
+
+
+/* 추가추가 */
+#foodtype{
+	color: F63245;
+	margin-left: 10px;
+	font-weight: lighter;
+}
+.rankinglist{
+	height: 70px;
+}
+#floatul {
+	 float: right;
+	 margin-right: 8px;
+	 font-size: 15px;
+	 width: 150px;
+	 
+}
+#jhap{
+	font-size: 18px;
+	margin: 5px 0px;
+}
+.starrate {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#ment {
+	margin-left: 5px;
+}
+.restlist{
+	min-width: 380px;
+	margin: 5px auto;
+}
+.tabs {
+	min-width: 380px;
+	margin: 0 auto;
+	
+}

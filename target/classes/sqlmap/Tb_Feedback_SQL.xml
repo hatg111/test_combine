@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tistory.pentode.service.dao.FeedbackDAO">
+
+	<insert id="create">
+
+		insert into feedback_tbl
+		(
+		memberid,
+		storeid,
+		reviewid,
+		taste,
+		costef,
+		service,
+		title,
+		review,
+		imgname,
+		thumbimg,
+		regdate
+		)
+		values
+		(
+		#{memberid},
+		#{storeid},
+		REVIEW_ID_SEQ.NEXTVAL,
+		#{taste},
+		#{costef},
+		#{service},
+		#{title},
+		#{review},
+		#{imgname},
+		#{thumbimg},
+		to_date(sysdate, 'yyyy/mm/dd')
+		)
+
+	</insert>
+
+
+	<select id="read" resultType="FeedbackVO">
+		select
+		memberid,
+		storeid,
+		reviewid,
+		taste,
+		costef,
+		service,
+		title,
+		review,
+		imgname,
+		thumbimg,
+		regdate
+		from
+		feedback_tbl
+		where
+		reviewid = #{reviewid}
+	</select>
+
+	<select id="listAll" resultType="FeedbackVO">
+
+		select
+		*
+		from
+		feedback_tbl
+		where
+		storeid = #{storeid}
+
+	</select>
+
+	<select id="updateread" resultType="FeedbackVO"
+		parameterType="FeedbackVO">
+		select
+		memberid,
+		storeid,
+		reviewid,
+		taste,
+		costef,
+		service,
+		title,
+		review,
+		regdate
+		from
+		feedback_tbl
+		where
+		reviewid = #{reviewid} AND storeid = #{storeid}
+	</select>
+	<update id="reviewupdate" parameterType="FeedbackVO">
+		update
+		feedback_tbl
+		set
+		<if test="title != null and title != ''">title = #{title},</if>
+		<if test="review != null and review != ''">review = #{review},</if>
+		taste = #{taste},
+		costef = #{costef},
+		service = #{service},
+		regdate = to_date(sysdate, 'yyyy/mm/dd')
+		where
+		reviewid = #{reviewid}
+	</update>
+
+	<delete id="deletereview">
+		delete from
+		feedback_tbl
+		where
+		reviewid = #{reviewid}
+	</delete>
+
+
+
+</mapper>
